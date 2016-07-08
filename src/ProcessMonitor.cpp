@@ -28,8 +28,11 @@ ProcessMonitor::ProcessMonitor(Configuration* config) : stop(false), config(conf
 ProcessMonitor::~ProcessMonitor() {
     stop = true;
 
+    if (controller != nullptr)
+        controller->setDesktopSaturation(*config);
+
     if (monitoringThread->joinable())
-        monitoringThread->join();
+        monitoringThread->join();    
 }
 
 void ProcessMonitor::init() {
