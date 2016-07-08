@@ -1,0 +1,21 @@
+syntax = "proto2";
+
+package SaturationChanger;
+
+enum GpuVendor {
+    AMD = 0;
+    NVIDIA = 1;
+    INTEL = 2;
+}
+
+message Configuration {
+    required string process_name = 1;
+    required int32 display_id = 2;
+    required GpuVendor vendor = 3;
+    required int32 desktop_saturation = 4;
+    required int32 game_saturation = 5;
+    optional int32 desktop_brightness = 6;
+    optional int32 game_brightness = 7;
+    optional int32 desktop_contrast = 8;
+    optional int32 game_contrast = 9;
+}

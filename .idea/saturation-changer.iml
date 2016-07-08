@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="CPP_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Debug/src/proto/Configuration.pb.cc">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Debug/src/proto/Configuration.pb.cc" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Debug/src/proto/proto_automoc.cpp">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Debug/src/proto/proto_automoc.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Debug/src/qrc_icons.cpp">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Debug/src/qrc_icons.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Debug/src/saturation_changer_automoc.cpp">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Debug/src/saturation_changer_automoc.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/MinSizeRel/src/proto/Configuration.pb.cc">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/MinSizeRel/src/proto/Configuration.pb.cc" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/MinSizeRel/src/proto/proto_automoc.cpp">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/MinSizeRel/src/proto/proto_automoc.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/MinSizeRel/src/qrc_icons.cpp">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/MinSizeRel/src/qrc_icons.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/MinSizeRel/src/saturation_changer_automoc.cpp">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/MinSizeRel/src/saturation_changer_automoc.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/RelWithDebInfo/src/proto/Configuration.pb.cc">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/RelWithDebInfo/src/proto/Configuration.pb.cc" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/RelWithDebInfo/src/proto/proto_automoc.cpp">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/RelWithDebInfo/src/proto/proto_automoc.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/RelWithDebInfo/src/qrc_icons.cpp">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/RelWithDebInfo/src/qrc_icons.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/RelWithDebInfo/src/saturation_changer_automoc.cpp">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/RelWithDebInfo/src/saturation_changer_automoc.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Release/src/proto/Configuration.pb.cc">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Release/src/proto/Configuration.pb.cc" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Release/src/proto/proto_automoc.cpp">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Release/src/proto/proto_automoc.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Release/src/qrc_icons.cpp">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Release/src/qrc_icons.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Release/src/saturation_changer_automoc.cpp">
+      <sourceFolder url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Release/src/saturation_changer_automoc.cpp" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/Window.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/SaturationController.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/LinuxProcessFinder.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/WinProcessFinder.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/proto/Configuration.proto" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/proto/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/AmdSaturationController.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/AmdSaturationController.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/ProcessFinder.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/LinuxProcessFinder.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/config/SaturationChangerConfig.h.in" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/config/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/icons/icons.qrc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Window.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/WinProcessFinder.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="Header Search Paths">
+        <CLASSES>
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include" />
+          <root url="file:///usr/include" />
+          <root url="file:///usr/local/include" />
+          <root url="file://$USER_HOME$/Qt/5.6/gcc_64/include" />
+          <root url="file://$USER_HOME$/Qt/5.6/gcc_64/mkspecs/linux-g++" />
+          <root url="file://$MODULE_DIR$/../protobuf/include" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Release/src" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Debug/src" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/RelWithDebInfo/src" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/MinSizeRel/src" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include-fixed" />
+          <root url="file:///usr/lib/gcc/x86_64-linux-gnu/4.9/include" />
+          <root url="file:///usr/include" />
+          <root url="file:///usr/local/include" />
+          <root url="file://$USER_HOME$/Qt/5.6/gcc_64/include" />
+          <root url="file://$USER_HOME$/Qt/5.6/gcc_64/mkspecs/linux-g++" />
+          <root url="file://$MODULE_DIR$/../protobuf/include" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Release/src" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Debug/src" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/RelWithDebInfo/src" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/MinSizeRel/src" />
+        </SOURCES>
+        <excluded>
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Release/src/saturation_changer_automoc.cpp" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Release/src/qrc_icons.cpp" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Release/src/proto/proto_automoc.cpp" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Release/src/proto/Configuration.pb.cc" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Debug/src/saturation_changer_automoc.cpp" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Debug/src/qrc_icons.cpp" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Debug/src/proto/proto_automoc.cpp" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/Debug/src/proto/Configuration.pb.cc" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/RelWithDebInfo/src/saturation_changer_automoc.cpp" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/RelWithDebInfo/src/qrc_icons.cpp" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/RelWithDebInfo/src/proto/proto_automoc.cpp" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/RelWithDebInfo/src/proto/Configuration.pb.cc" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/MinSizeRel/src/saturation_changer_automoc.cpp" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/MinSizeRel/src/qrc_icons.cpp" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/MinSizeRel/src/proto/proto_automoc.cpp" />
+          <root url="file://$USER_HOME$/.CLion2016.1/system/cmake/generated/saturation-changer-d5860bcb/d5860bcb/MinSizeRel/src/proto/Configuration.pb.cc" />
+        </excluded>
+      </library>
+    </orderEntry>
+  </component>
+</module>

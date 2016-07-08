@@ -1,0 +1,6 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/">
+        <file>saturation_changer.png</file>
+        <file>saturation_changer_small.png</file>
+    </qresource>
+</RCC>

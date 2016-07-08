@@ -1,0 +1,6 @@
+#define SaturationChanger_VERSION_MAJOR @VERSION_MAJOR@
+#define SaturationChanger_VERSION_MINOR @VERSION_MINOR@
+#define SaturationChanger_VERSION_PATCH @VERSION_PATCH@
+
+#cmakedefine PLATFORM_WINDOWS
+#cmakedefine PLATFORM_LINUX
