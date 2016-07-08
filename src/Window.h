@@ -2,8 +2,9 @@
 
 #include <QSystemTrayIcon>
 #include <QDialog>
+#include <Configuration.pb.h>
 
-#include "ProcessFinder.h"
+#include "ProcessMonitor.h"
 
 class QAction;
 class QCheckBox;
@@ -26,13 +27,14 @@ class Window : public QDialog {
 public:
     Window();
 
-    void setVisible(bool visible);
+    void setVisible(bool visible) override;
 
 protected:
-    void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent *event) override;
 
 private slots:
     void iconActivated(QSystemTrayIcon::ActivationReason reason);
+    void vendorChanged(int index) const;
     void saveConfiguration();
 
 private:
@@ -64,6 +66,7 @@ private:
     QSpinBox* gameBrightnessSpinBox;
     QSpinBox* gameContrastSpinBox;
 
+    bool configLoaded;
     QPushButton* saveConfigurationButton;
     QLabel* saveLabel;
 
@@ -76,7 +79,8 @@ private:
     QSystemTrayIcon* trayIcon;
     QMenu* trayIconMenu;
 
-    ProcessFinder* processFinder;
+    std::unique_ptr<ProcessMonitor> monitor;
+	Configuration saturationConfig;
 };
 
 }

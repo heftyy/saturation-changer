@@ -10,17 +10,20 @@
 
 namespace SaturationChanger {
 
-Window::Window() : icon(":/saturation_changer.png") {
-    createMessageGroupBox();
+Window::Window() : icon(":/saturation_changer.png"), configLoaded(false) {
+    createMessageGroupBox();    
 
     createActions();
     createTrayIcon();
 
     connect(saveConfigurationButton, SIGNAL(clicked()), this, SLOT(saveConfiguration()));
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
-            this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
+            this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));        
 
-    QVBoxLayout* mainLayout = new QVBoxLayout;
+    connect(gpuVendorComboBox, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(vendorChanged(int)));
+
+    QVBoxLayout* mainLayout = new QVBoxLayout(this);
     mainLayout->addWidget(configurationGroupBox);
     setLayout(mainLayout);
 
@@ -30,13 +33,8 @@ Window::Window() : icon(":/saturation_changer.png") {
     resize(400, 300);
 
     loadConfiguration();
-
-#ifdef __linux__
-    processFinder = new LinuxProcessFinder;
-#elif WIN32
-    processFinder = new WinProcessFinder;
-#endif
-
+    monitor = std::make_unique<ProcessMonitor>(&saturationConfig);
+    monitor->init();
 }
 
 void Window::setVisible(bool visible) {
@@ -66,27 +64,49 @@ void Window::iconActivated(QSystemTrayIcon::ActivationReason reason) {
     }
 }
 
+void Window::vendorChanged(int index) const {
+    if (configLoaded) {
+        QMessageBox::information(nullptr,
+                                 tr("Vendor changed"),
+                                 tr("Please save the settings and restart the application\n"
+                                    "for the changes to take effect"));
+    }    
+
+    if (index == AMD) {
+        desktopBrightnessSpinBox->setEnabled(true);
+        desktopContrastSpinBox->setEnabled(true);
+
+        gameBrightnessSpinBox->setEnabled(true);
+        gameContrastSpinBox->setEnabled(true);
+    }
+    else {
+        desktopBrightnessSpinBox->setEnabled(false);
+        desktopContrastSpinBox->setEnabled(false);
+
+        gameBrightnessSpinBox->setEnabled(false);
+        gameContrastSpinBox->setEnabled(false);
+    }
+}
+
 void Window::saveConfiguration() {
     QFile file(CONFIGURATION_FILE);
     if (file.open(QIODevice::WriteOnly)) {
         QTextStream out(&file);
 
-        Configuration conf;
+		saturationConfig.set_process_name(processNameLineEdit->text().toStdString());
+		saturationConfig.set_display_id(displayIdSpinBox->value());
+		saturationConfig.set_vendor(static_cast<GpuVendor>(gpuVendorComboBox->currentIndex()));
 
-        conf.set_process_name(processNameLineEdit->text().toStdString());
-        conf.set_display_id(displayIdSpinBox->value());
-        conf.set_vendor(static_cast<GpuVendor>(gpuVendorComboBox->currentIndex()));
+		saturationConfig.set_desktop_saturation(desktopSaturationSpinBox->value());
+		saturationConfig.set_desktop_brightness(desktopBrightnessSpinBox->value());
+		saturationConfig.set_desktop_contrast(desktopContrastSpinBox->value());
 
-        conf.set_desktop_saturation(desktopSaturationSpinBox->value());
-        conf.set_desktop_brightness(desktopBrightnessSpinBox->value());
-        conf.set_desktop_contrast(desktopContrastSpinBox->value());
-
-        conf.set_game_saturation(gameSaturationSpinBox->value());
-        conf.set_game_brightness(gameBrightnessSpinBox->value());
-        conf.set_game_contrast(gameContrastSpinBox->value());
+		saturationConfig.set_game_saturation(gameSaturationSpinBox->value());
+		saturationConfig.set_game_brightness(gameBrightnessSpinBox->value());
+		saturationConfig.set_game_contrast(gameContrastSpinBox->value());
 
         std::string config_output;
-        google::protobuf::TextFormat::PrintToString(conf, &config_output);
+        google::protobuf::TextFormat::PrintToString(saturationConfig, &config_output);
 
         out << QString::fromStdString(config_output);
 
@@ -95,55 +115,54 @@ void Window::saveConfiguration() {
 }
 
 void Window::createMessageGroupBox() {
-    configurationGroupBox = new QGroupBox(tr("Configuration"));
+    configurationGroupBox = new QGroupBox(tr("Configuration"), this);
 
-    processNameLabel = new QLabel(tr("Process name"));
-    displayIdLabel = new QLabel(tr("Display id"));
-    gpuVendorLabel = new QLabel(tr("Gpu vendor"));
-    desktopSaturationLabel = new QLabel(tr("Desktop saturation"));
-    desktopBrightnessLabel = new QLabel(tr("Desktop brightness"));
-    desktopContrastLabel = new QLabel(tr("Desktop contrast"));
-    gameSaturationLabel = new QLabel(tr("Game saturation"));
-    gameBrightnessLabel = new QLabel(tr("Game brightness"));
-    gameContrastLabel = new QLabel(tr("Game contrast"));
+    processNameLabel = new QLabel(tr("Process name"), configurationGroupBox);
+    displayIdLabel = new QLabel(tr("Display id"), configurationGroupBox);
+    gpuVendorLabel = new QLabel(tr("Gpu vendor"), configurationGroupBox);
+    desktopSaturationLabel = new QLabel(tr("Desktop saturation"), configurationGroupBox);
+    desktopBrightnessLabel = new QLabel(tr("Desktop brightness (AMD only)"), configurationGroupBox);
+    desktopContrastLabel = new QLabel(tr("Desktop contrast (AMD only)"), configurationGroupBox);
+    gameSaturationLabel = new QLabel(tr("Game saturation"), configurationGroupBox);
+    gameBrightnessLabel = new QLabel(tr("Game brightness (AMD only)"), configurationGroupBox);
+    gameContrastLabel = new QLabel(tr("Game contrast (AMD only)"), configurationGroupBox);
 
-    processNameLineEdit = new QLineEdit;
+    processNameLineEdit = new QLineEdit(configurationGroupBox);
 
-    displayIdSpinBox = new QSpinBox;
+    displayIdSpinBox = new QSpinBox(configurationGroupBox);
     displayIdSpinBox->setRange(0, 3);
     displayIdSpinBox->setValue(0);
 
-    gpuVendorComboBox = new QComboBox;
+    gpuVendorComboBox = new QComboBox(configurationGroupBox);
     gpuVendorComboBox->addItem("AMD", GpuVendor::AMD);
-    gpuVendorComboBox->addItem("NVIDIA", GpuVendor::NVIDIA);
-    gpuVendorComboBox->addItem("INTEL", GpuVendor::INTEL);
+    gpuVendorComboBox->addItem("NVIDIA", GpuVendor::NVIDIA);    
 
-    desktopSaturationSpinBox = new QSpinBox;
+    desktopSaturationSpinBox = new QSpinBox(configurationGroupBox);
     desktopSaturationSpinBox->setRange(0, 100);
     desktopSaturationSpinBox->setValue(0);
-    desktopBrightnessSpinBox = new QSpinBox;
+    desktopBrightnessSpinBox = new QSpinBox(configurationGroupBox);
     desktopBrightnessSpinBox->setRange(0, 100);
     desktopBrightnessSpinBox->setValue(0);
-    desktopContrastSpinBox = new QSpinBox;
+    desktopContrastSpinBox = new QSpinBox(configurationGroupBox);
     desktopContrastSpinBox->setRange(0, 100);
     desktopContrastSpinBox->setValue(0);
 
-    gameSaturationSpinBox = new QSpinBox;
+    gameSaturationSpinBox = new QSpinBox(configurationGroupBox);
     gameSaturationSpinBox->setRange(0, 100);
     gameSaturationSpinBox->setValue(0);
-    gameBrightnessSpinBox = new QSpinBox;
+    gameBrightnessSpinBox = new QSpinBox(configurationGroupBox);
     gameBrightnessSpinBox->setRange(0, 100);
     gameBrightnessSpinBox->setValue(0);
-    gameContrastSpinBox = new QSpinBox;
+    gameContrastSpinBox = new QSpinBox(configurationGroupBox);
     gameContrastSpinBox->setRange(0, 100);
     gameContrastSpinBox->setValue(0);
 
-    saveConfigurationButton = new QPushButton(tr("Save"));
+    saveConfigurationButton = new QPushButton(tr("Save"), configurationGroupBox);
     saveConfigurationButton->setDefault(true);
-    saveLabel = new QLabel(tr("Saved!"));
+    saveLabel = new QLabel(tr("Saved!"), configurationGroupBox);
     saveLabel->setVisible(false);
 
-    QGridLayout* configurationLayout = new QGridLayout;
+    QGridLayout* configurationLayout = new QGridLayout(this);
     configurationLayout->addWidget(processNameLabel, 0, 0);
     configurationLayout->addWidget(processNameLineEdit, 0, 1);
     configurationLayout->addWidget(displayIdLabel, 1, 0);
@@ -211,20 +230,21 @@ void Window::loadConfiguration() {
     QTextStream in(&file);
     QString lines = in.readAll();
 
-    Configuration conf;
-    google::protobuf::TextFormat::ParseFromString(lines.toStdString(), &conf);
+    google::protobuf::TextFormat::ParseFromString(lines.toStdString(), &saturationConfig);
 
-    processNameLineEdit->setText(QString::fromStdString(conf.process_name()));
-    displayIdSpinBox->setValue(conf.display_id());
-    gpuVendorComboBox->setCurrentIndex(conf.vendor());
+    processNameLineEdit->setText(QString::fromStdString(saturationConfig.process_name()));
+    displayIdSpinBox->setValue(saturationConfig.display_id());
+    gpuVendorComboBox->setCurrentIndex(saturationConfig.vendor());
 
-    desktopSaturationSpinBox->setValue(conf.desktop_saturation());
-    desktopBrightnessSpinBox->setValue(conf.desktop_brightness());
-    desktopContrastSpinBox->setValue(conf.desktop_contrast());
+    desktopSaturationSpinBox->setValue(saturationConfig.desktop_saturation());
+    desktopBrightnessSpinBox->setValue(saturationConfig.desktop_brightness());
+    desktopContrastSpinBox->setValue(saturationConfig.desktop_contrast());
 
-    gameSaturationSpinBox->setValue(conf.game_saturation());
-    gameBrightnessSpinBox->setValue(conf.game_brightness());
-    gameContrastSpinBox->setValue(conf.game_contrast());
+    gameSaturationSpinBox->setValue(saturationConfig.game_saturation());
+    gameBrightnessSpinBox->setValue(saturationConfig.game_brightness());
+    gameContrastSpinBox->setValue(saturationConfig.game_contrast());
+
+    configLoaded = true;
 }
 
 void Window::fadeOutSave() {

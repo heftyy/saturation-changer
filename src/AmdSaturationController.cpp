@@ -2,23 +2,64 @@
 
 namespace SaturationChanger {
 
-AmdSaturationController::AmdSaturationController(int displayId) :
+AmdSaturationController::AmdSaturationController(int display_id) :
         i(0), j(0), iNumberAdapters(0), iAdapterIndex(0), iDisplayIndex(0),
         iNumDisplays(0), iColorCaps(0), iValidBits(0),
         iCurrent(0), iDefault(0), iMin(0), iMax(0), iStep(0) {
 
-    currentSaturation = getSetting(displayId, ADL_DISPLAY_COLOR_SATURATION);
-    currentBrightness = getSetting(displayId, ADL_DISPLAY_COLOR_BRIGHTNESS);
-    currentContrast = getSetting(displayId, ADL_DISPLAY_COLOR_CONTRAST);
+    initializeLibrary();
 
+    currentSaturation = getSetting(display_id, ADL_DISPLAY_COLOR_SATURATION);
+    currentBrightness = getSetting(display_id, ADL_DISPLAY_COLOR_BRIGHTNESS);
+    currentContrast = getSetting(display_id, ADL_DISPLAY_COLOR_CONTRAST);    
+}
+
+AmdSaturationController::~AmdSaturationController() {
+    ADL_Main_Memory_Free((void**) &lpAdapterInfo);
+    ADL_Main_Memory_Free((void**) &lpAdlDisplayInfo);
+    ADL_Main_Control_Destroy();
+
+    if (hDLL != NULL) {
+#ifdef PLATFORM_LINUX
+        dlclose(hDLL);
+#else
+        FreeLibrary(hDLL);
+#endif
+    }
+}
+
+void AmdSaturationController::setGameSaturation(const Configuration& conf) {
+    if (conf.game_saturation() != currentSaturation &&
+        conf.game_brightness() != currentBrightness &&
+        conf.game_contrast() != currentContrast) {
+
+        currentSaturation = setSetting(conf.game_saturation(), conf.display_id(), ADL_DISPLAY_COLOR_SATURATION);
+        currentBrightness = setSetting(conf.game_brightness(), conf.display_id(), ADL_DISPLAY_COLOR_BRIGHTNESS);
+        currentContrast = setSetting(conf.game_contrast(), conf.display_id(), ADL_DISPLAY_COLOR_CONTRAST);
+    }
+}
+
+void AmdSaturationController::setDesktopSaturation(const Configuration& conf) {
+    if (conf.desktop_saturation() != currentSaturation &&
+        conf.desktop_brightness() != currentBrightness &&
+        conf.desktop_contrast() != currentContrast) {
+
+        currentSaturation = setSetting(conf.desktop_saturation(), conf.display_id(), ADL_DISPLAY_COLOR_SATURATION);
+        currentBrightness = setSetting(conf.desktop_brightness(), conf.display_id(), ADL_DISPLAY_COLOR_BRIGHTNESS);
+        currentContrast = setSetting(conf.desktop_contrast(), conf.display_id(), ADL_DISPLAY_COLOR_CONTRAST);
+    }
+}
+
+
+void AmdSaturationController::initializeLibrary() {
 #ifdef PLATFORM_LINUX
     hDLL = dlopen("libatiadlxx.so", RTLD_LAZY | RTLD_GLOBAL);
 #else
-    hDLL = LoadLibrary(L"atiadlxx.dll");
-        if (hDLL == NULL)
-            // A 32 bit calling application on 64 bit OS will fail to LoadLIbrary.
-            // Try to load the 32 bit library (atiadlxy.dll) instead
-            hDLL = LoadLibrary(L"atiadlxy.dll");
+    hDLL = LoadLibraryA("atiadlxx.dll");
+    if (hDLL == NULL)
+        // A 32 bit calling application on 64 bit OS will fail to LoadLIbrary.
+        // Try to load the 32 bit library (atiadlxy.dll) instead
+        hDLL = LoadLibraryA("atiadlxy.dll");
 #endif
 
     if (NULL == hDLL) {
@@ -68,43 +109,6 @@ AmdSaturationController::AmdSaturationController(int displayId) :
         ADL_Adapter_AdapterInfo_Get(lpAdapterInfo, sizeof(AdapterInfo) * iNumberAdapters);
     }
 }
-
-AmdSaturationController::~AmdSaturationController() {
-    ADL_Main_Memory_Free((void**) &lpAdapterInfo);
-    ADL_Main_Memory_Free((void**) &lpAdlDisplayInfo);
-    ADL_Main_Control_Destroy();
-
-    if (hDLL != NULL) {
-#ifdef PLATFORM_LINUX
-        dlclose(hDLL);
-#else
-        FreeLibrary(hDLL);
-#endif
-    }
-}
-
-void AmdSaturationController::setGameSaturation(const Configuration& conf) {
-    if (conf.game_saturation() != currentSaturation &&
-        conf.game_brightness() != currentBrightness &&
-        conf.game_contrast() != currentContrast) {
-
-        currentSaturation = setSetting(conf.game_saturation(), conf.display_id(), ADL_DISPLAY_COLOR_SATURATION);
-        currentBrightness = setSetting(conf.game_brightness(), conf.display_id(), ADL_DISPLAY_COLOR_BRIGHTNESS);
-        currentContrast = setSetting(conf.game_contrast(), conf.display_id(), ADL_DISPLAY_COLOR_CONTRAST);
-    }
-}
-
-void AmdSaturationController::setDesktopSaturation(const Configuration& conf) {
-    if (conf.desktop_saturation() != currentSaturation &&
-        conf.desktop_brightness() != currentBrightness &&
-        conf.desktop_contrast() != currentContrast) {
-
-        currentSaturation = setSetting(conf.desktop_saturation(), conf.display_id(), ADL_DISPLAY_COLOR_SATURATION);
-        currentBrightness = setSetting(conf.desktop_brightness(), conf.display_id(), ADL_DISPLAY_COLOR_BRIGHTNESS);
-        currentContrast = setSetting(conf.desktop_contrast(), conf.display_id(), ADL_DISPLAY_COLOR_CONTRAST);
-    }
-}
-
 
 int AmdSaturationController::getSetting(int logical_display_id, int setting) {
     // Repeat for all available adapters in the system
@@ -197,6 +201,7 @@ int AmdSaturationController::setSetting(int value, int logical_display_id, int s
     return -1;
 }
 
+#ifdef PLATFORM_LINUX
 void AmdSaturationController::Sleep(int time) {
     usleep(time * 1000);
 }
@@ -204,5 +209,6 @@ void AmdSaturationController::Sleep(int time) {
 void* AmdSaturationController::GetProcAddress(void* pLibrary, const char* name) {
     return dlsym(pLibrary, name);
 }
+#endif
 
 }

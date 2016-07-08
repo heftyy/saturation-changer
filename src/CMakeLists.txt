@@ -23,7 +23,12 @@ set(SATURATION_CHANGER_SOURCE_FILES
         LinuxProcessFinder.cpp
         WinProcessFinder.cpp
         AmdSaturationController.cpp
-        AmdSaturationController.h)
+        AmdSaturationController.h
+        NvidiaSaturationController.cpp
+        NvidiaSaturationController.h
+        ProcessMonitor.cpp
+        ProcessMonitor.h
+        )
 
 add_executable(saturation_changer WIN32 ${SATURATION_CHANGER_SOURCE_FILES} ${RESOURCE_ADDED})
 target_link_libraries(saturation_changer ${QT_QTMAIN_LIBRARY} Qt5::Widgets proto)

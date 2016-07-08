@@ -9,14 +9,16 @@
 #include <tlhelp32.h>
 #include <string>
 
+namespace SaturationChanger {
+
 class WinProcessFinder : public ProcessFinder {
-
 public:
-    virtual bool isProcessRunning(std::string process_name) override;
+    WinProcessFinder() {
+    }
 
-private:
-    PROCESSENTRY32 entry;
-    HANDLE snapshot;
+    virtual bool isProcessRunning(std::string process_name) override;    
 };
+
+}
 
 #endif

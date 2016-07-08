@@ -4,9 +4,10 @@
 
 namespace SaturationChanger {
 
-bool SaturationChanger::isProcessRunning(std::string process_name) {
+bool WinProcessFinder::isProcessRunning(std::string process_name) {
     bool process_found = false;
     HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, NULL);
+    PROCESSENTRY32 entry;
 
     if (Process32First(snapshot, &entry) == TRUE)
     {
@@ -14,9 +15,9 @@ bool SaturationChanger::isProcessRunning(std::string process_name) {
         {
             char DefChar = ' ';
             char iter_process_name[260];
-            WideCharToMultiByte(CP_ACP, 0, entry.szExeFile, -1, iter_process_name, 260, &DefChar, NULL);
+//            WideCharToMultiByte(CP_ACP, 0, entry.szExeFile, -1, iter_process_name, 260, &DefChar, NULL);
 
-            if (stricmp(iter_process_name, process_name.c_str()) == 0)
+            if (stricmp(entry.szExeFile, process_name.c_str()) == 0)
             {
                 process_found = true;
                 break;

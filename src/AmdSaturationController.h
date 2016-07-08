@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <config/SaturationChangerConfig.h>
-#include <proto/Configuration.pb.h>
 #include "SaturationController.h"
 
 namespace SaturationChanger {
@@ -18,7 +17,7 @@ namespace SaturationChanger {
 #else
 #include <windows.h>
 #include <tchar.h>
-#include "..\adl\adl_sdk.h"
+#include "../adl/adl_sdk.h"
 #endif
 
 #include <stdio.h>
@@ -35,11 +34,11 @@ typedef int(* ADL_DISPLAY_DISPLAYINFO_GET)(int, int*, ADLDisplayInfo**, int);
 
 class AmdSaturationController : public SaturationController {
 public:
-    AmdSaturationController(int displayId);
+    explicit AmdSaturationController(int display_id);
     ~AmdSaturationController();
 
-    virtual void setGameSaturation(const Configuration& conf);
-    virtual void setDesktopSaturation(const Configuration& conf);
+    void setGameSaturation(const Configuration& conf) override;
+    void setDesktopSaturation(const Configuration& conf) override;
 
 private:
     int currentSaturation;
@@ -90,6 +89,7 @@ private:
     void Sleep(int time);
 #endif
 
+    void initializeLibrary();
     int getSetting(int logical_display_id, int setting);
     int setSetting(int value, int logical_display_id, int setting);
 };
