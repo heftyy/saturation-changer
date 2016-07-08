@@ -3,8 +3,9 @@
 namespace SaturationChanger {
 
 AmdSaturationController::AmdSaturationController(int displayId) :
-        i(0), j(0), iMin(0), iMax(0), iAdapterIndex(0), iColorCaps(0), iCurrent(0),
-        iDefault(0), iDisplayIndex(0), iNumDisplays(0), iStep(0), iValidBits(0) {
+        i(0), j(0), iNumberAdapters(0), iAdapterIndex(0), iDisplayIndex(0),
+        iNumDisplays(0), iColorCaps(0), iValidBits(0),
+        iCurrent(0), iDefault(0), iMin(0), iMax(0), iStep(0) {
 
     currentSaturation = getSetting(displayId, ADL_DISPLAY_COLOR_SATURATION);
     currentBrightness = getSetting(displayId, ADL_DISPLAY_COLOR_BRIGHTNESS);
