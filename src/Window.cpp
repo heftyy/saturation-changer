@@ -73,6 +73,28 @@ void Window::vendorChanged(int index) const {
     }    
 
     if (index == AMD) {
+        //default saturation
+        desktopSaturationSpinBox->setValue(100);
+        desktopSaturationSpinBox->setMaximum(200);
+
+        gameSaturationSpinBox->setValue(175);
+        gameSaturationSpinBox->setMaximum(200);
+
+        //default brightness
+        desktopBrightnessSpinBox->setValue(0);
+        desktopBrightnessSpinBox->setMaximum(100);
+
+        gameBrightnessSpinBox->setValue(0);
+        gameBrightnessSpinBox->setMaximum(100);
+
+        //default contrast
+        desktopContrastSpinBox->setValue(100);
+        desktopContrastSpinBox->setMaximum(200);
+
+        gameContrastSpinBox->setValue(100);
+        gameContrastSpinBox->setMaximum(200);
+
+        //enable AMD only options
         desktopBrightnessSpinBox->setEnabled(true);
         desktopContrastSpinBox->setEnabled(true);
 
@@ -80,6 +102,14 @@ void Window::vendorChanged(int index) const {
         gameContrastSpinBox->setEnabled(true);
     }
     else {
+        //default saturation
+        desktopSaturationSpinBox->setValue(0);
+        desktopSaturationSpinBox->setMaximum(63);
+
+        gameSaturationSpinBox->setValue(50);
+        gameSaturationSpinBox->setMaximum(63);
+
+        //disable AMD only options
         desktopBrightnessSpinBox->setEnabled(false);
         desktopContrastSpinBox->setEnabled(false);
 
@@ -138,23 +168,23 @@ void Window::createMessageGroupBox() {
     gpuVendorComboBox->addItem("NVIDIA", GpuVendor::NVIDIA);    
 
     desktopSaturationSpinBox = new QSpinBox(configurationGroupBox);
-    desktopSaturationSpinBox->setRange(0, 100);
+    desktopSaturationSpinBox->setRange(0, 200);
     desktopSaturationSpinBox->setValue(0);
     desktopBrightnessSpinBox = new QSpinBox(configurationGroupBox);
     desktopBrightnessSpinBox->setRange(0, 100);
     desktopBrightnessSpinBox->setValue(0);
     desktopContrastSpinBox = new QSpinBox(configurationGroupBox);
-    desktopContrastSpinBox->setRange(0, 100);
+    desktopContrastSpinBox->setRange(0, 200);
     desktopContrastSpinBox->setValue(0);
 
     gameSaturationSpinBox = new QSpinBox(configurationGroupBox);
-    gameSaturationSpinBox->setRange(0, 100);
+    gameSaturationSpinBox->setRange(0, 200);
     gameSaturationSpinBox->setValue(0);
     gameBrightnessSpinBox = new QSpinBox(configurationGroupBox);
     gameBrightnessSpinBox->setRange(0, 100);
     gameBrightnessSpinBox->setValue(0);
     gameContrastSpinBox = new QSpinBox(configurationGroupBox);
-    gameContrastSpinBox->setRange(0, 100);
+    gameContrastSpinBox->setRange(0, 200);
     gameContrastSpinBox->setValue(0);
 
     saveConfigurationButton = new QPushButton(tr("Save"), configurationGroupBox);
