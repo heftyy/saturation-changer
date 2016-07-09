@@ -5,7 +5,9 @@ Usage:
 * Choose yor gpu vendor and display id
 * Set your desktop and game saturation
 * Click save
-* Run your game 
+* Run your game
+
+-----
 
 toolchains tested:
 * msvc 14
