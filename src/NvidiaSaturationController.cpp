@@ -14,6 +14,10 @@ NvidiaSaturationController::NvidiaSaturationController(int display_id) :
     currentDVC = getDVCLevel();
 }
 
+NvidiaSaturationController::~NvidiaSaturationController() {
+    unloadLibrary();
+}
+
 void NvidiaSaturationController::setGameSaturation(const Configuration& conf) {    
     if(conf.display_id() != displayId) {        
         setDVCLevel(conf.desktop_saturation());
@@ -44,16 +48,16 @@ void NvidiaSaturationController::setDesktopSaturation(const Configuration& conf)
 
 bool NvidiaSaturationController::initializeLibrary() {
 #ifdef _WIN64
-    HMODULE hmod = LoadLibraryA("nvapi64.dll");
+    hDLL = LoadLibraryA("nvapi64.dll");
 #else
-    HMODULE hmod = LoadLibraryA("nvapi.dll");
+    hDLL = LoadLibraryA("nvapi.dll");
 #endif
 
-    if (hmod == NULL) {
+    if (hDLL == NULL) {
         return false;
     }
 
-    NvAPI_QueryInterface = (NvAPI_QueryInterface_t) GetProcAddress(hmod, "nvapi_QueryInterface");
+    NvAPI_QueryInterface = (NvAPI_QueryInterface_t) GetProcAddress(hDLL, "nvapi_QueryInterface");
 
     NvAPI_Initialize = (NvAPI_Initialize_t) (*NvAPI_QueryInterface)(0x0150E828);
     NvAPI_Unload = (NvAPI_Unload_t) (*NvAPI_QueryInterface)(0x0D22BDD7E);
@@ -87,6 +91,13 @@ bool NvidiaSaturationController::initializeLibrary() {
 
 bool NvidiaSaturationController::unloadLibrary() const {
     int ret = (*NvAPI_Unload)();
+
+#ifdef PLATFORM_LINUX
+    dlclose(hDLL);
+#else
+    FreeLibrary(hDLL);
+#endif
+
     if (ret == 0)
         return true;
     return false;

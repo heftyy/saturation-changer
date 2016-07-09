@@ -14,14 +14,18 @@ public:
     explicit ProcessMonitor(Configuration* config);
     ~ProcessMonitor();
 
-    void init();
+    void start();
+    void stop();
+    void restart();
 
 private:
 	std::unique_ptr<ProcessFinder> processFinder;
     std::unique_ptr<std::thread> monitoringThread;
     std::unique_ptr<SaturationController> controller;
-    std::atomic<bool> stop;
+    std::atomic<bool> stopMonitoring;
     Configuration* config;
+
+    void createController();
 };
 
 }

@@ -16,7 +16,9 @@ public:
     WinProcessFinder() {
     }
 
-    virtual bool isProcessRunning(std::string process_name) override;    
+    bool isProcessRunning(std::string process_name) override;    
+private:
+    std::string trim(const std::string& str);
 };
 
 }

@@ -10,7 +10,7 @@
 
 namespace SaturationChanger {
 
-Window::Window() : icon(":/saturation_changer.png"), configLoaded(false) {
+Window::Window() : icon(":/saturation_changer.png") {
     createMessageGroupBox();    
 
     createActions();
@@ -34,7 +34,7 @@ Window::Window() : icon(":/saturation_changer.png"), configLoaded(false) {
 
     loadConfiguration();
     monitor = std::make_unique<ProcessMonitor>(&saturationConfig);
-    monitor->init();
+    monitor->start();
 }
 
 void Window::setVisible(bool visible) {
@@ -47,7 +47,7 @@ void Window::setVisible(bool visible) {
 void Window::closeEvent(QCloseEvent* event) {
     if (trayIcon->isVisible()) {
         hide();
-        event->ignore();
+        event->ignore();        
     }
 }
 
@@ -65,34 +65,39 @@ void Window::iconActivated(QSystemTrayIcon::ActivationReason reason) {
 }
 
 void Window::vendorChanged(int index) const {
+    /*
     if (configLoaded) {
         QMessageBox::information(nullptr,
                                  tr("Vendor changed"),
                                  tr("Please save the settings and restart the application\n"
-                                    "for the changes to take effect"));
+                                    "for the changes to take effect"));        
     }    
+    */
+
+    if (monitor != nullptr)
+        monitor->restart();
 
     if (index == AMD) {
         //default saturation
-        desktopSaturationSpinBox->setValue(100);
         desktopSaturationSpinBox->setMaximum(200);
+        desktopSaturationSpinBox->setValue(100);
 
-        gameSaturationSpinBox->setValue(175);
         gameSaturationSpinBox->setMaximum(200);
+        gameSaturationSpinBox->setValue(175);
 
         //default brightness
-        desktopBrightnessSpinBox->setValue(0);
         desktopBrightnessSpinBox->setMaximum(100);
+        desktopBrightnessSpinBox->setValue(0);
 
-        gameBrightnessSpinBox->setValue(0);
         gameBrightnessSpinBox->setMaximum(100);
+        gameBrightnessSpinBox->setValue(0);
 
         //default contrast
-        desktopContrastSpinBox->setValue(100);
         desktopContrastSpinBox->setMaximum(200);
+        desktopContrastSpinBox->setValue(100);
 
-        gameContrastSpinBox->setValue(100);
         gameContrastSpinBox->setMaximum(200);
+        gameContrastSpinBox->setValue(100);
 
         //enable AMD only options
         desktopBrightnessSpinBox->setEnabled(true);
@@ -103,11 +108,11 @@ void Window::vendorChanged(int index) const {
     }
     else {
         //default saturation
-        desktopSaturationSpinBox->setValue(0);
         desktopSaturationSpinBox->setMaximum(63);
+        desktopSaturationSpinBox->setValue(0);
 
-        gameSaturationSpinBox->setValue(50);
         gameSaturationSpinBox->setMaximum(63);
+        gameSaturationSpinBox->setValue(50);
 
         //disable AMD only options
         desktopBrightnessSpinBox->setEnabled(false);
@@ -147,7 +152,7 @@ void Window::saveConfiguration() {
 void Window::createMessageGroupBox() {
     configurationGroupBox = new QGroupBox(tr("Configuration"), this);
 
-    processNameLabel = new QLabel(tr("Process name"), configurationGroupBox);
+    processNameLabel = new QLabel(tr("Window name"), configurationGroupBox);
     displayIdLabel = new QLabel(tr("Display id"), configurationGroupBox);
     gpuVendorLabel = new QLabel(tr("Gpu vendor"), configurationGroupBox);
     desktopSaturationLabel = new QLabel(tr("Desktop saturation"), configurationGroupBox);
@@ -273,8 +278,6 @@ void Window::loadConfiguration() {
     gameSaturationSpinBox->setValue(saturationConfig.game_saturation());
     gameBrightnessSpinBox->setValue(saturationConfig.game_brightness());
     gameContrastSpinBox->setValue(saturationConfig.game_contrast());
-
-    configLoaded = true;
 }
 
 void Window::fadeOutSave() {

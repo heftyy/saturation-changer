@@ -66,7 +66,6 @@ private:
     QSpinBox* gameBrightnessSpinBox;
     QSpinBox* gameContrastSpinBox;
 
-    bool configLoaded;
     QPushButton* saveConfigurationButton;
     QLabel* saveLabel;
 

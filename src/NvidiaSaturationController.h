@@ -183,8 +183,7 @@ class NvidiaSaturationController : public SaturationController {
 public:
     NvidiaSaturationController(int display_id);
 
-    ~NvidiaSaturationController() override {
-    }
+    virtual ~NvidiaSaturationController() override;
 
     void setGameSaturation(const Configuration& conf) override;
     void setDesktopSaturation(const Configuration& conf) override;
@@ -193,6 +192,12 @@ private:
     int currentDVC;
     int displayHandle;
     int displayId;
+
+#ifdef PLATFORM_LINUX
+    void* hDLL;        // Handle to .so library
+#else
+    HINSTANCE hDLL;		// Handle to DLL
+#endif
 
     NvAPI_QueryInterface_t NvAPI_QueryInterface;
     NvAPI_Initialize_t NvAPI_Initialize;
