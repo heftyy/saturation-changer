@@ -18,7 +18,7 @@ public:
 
     bool isProcessRunning(std::string process_name) override;    
 private:
-    std::string trim(const std::string& str);
+    static std::string trim(const std::string& str);
 };
 
 }

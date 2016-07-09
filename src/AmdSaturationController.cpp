@@ -29,8 +29,8 @@ AmdSaturationController::~AmdSaturationController() {
 }
 
 void AmdSaturationController::setGameSaturation(const Configuration& conf) {
-    if (conf.game_saturation() != currentSaturation &&
-        conf.game_brightness() != currentBrightness &&
+    if (conf.game_saturation() != currentSaturation ||
+        conf.game_brightness() != currentBrightness ||
         conf.game_contrast() != currentContrast) {
 
         currentSaturation = setSetting(conf.game_saturation(), conf.display_id(), ADL_DISPLAY_COLOR_SATURATION);
@@ -40,8 +40,8 @@ void AmdSaturationController::setGameSaturation(const Configuration& conf) {
 }
 
 void AmdSaturationController::setDesktopSaturation(const Configuration& conf) {
-    if (conf.desktop_saturation() != currentSaturation &&
-        conf.desktop_brightness() != currentBrightness &&
+    if (conf.desktop_saturation() != currentSaturation ||
+        conf.desktop_brightness() != currentBrightness ||
         conf.desktop_contrast() != currentContrast) {
 
         currentSaturation = setSetting(conf.desktop_saturation(), conf.display_id(), ADL_DISPLAY_COLOR_SATURATION);
