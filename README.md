@@ -10,7 +10,6 @@ Usage:
 * Click save
 * Run your game
 
-======
 
 toolchains tested:
 * msvc 14
